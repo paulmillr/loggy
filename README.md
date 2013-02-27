@@ -1,12 +1,16 @@
 # loggy
 
-Colorful standard stream dead-simple logger for node.js.
+Colorful stdstream dead-simple logger for node.js.
 
 * Logs stuff to stdout (`log`, `info`, `success`).
 * Logs errors & warnings to stderr (`warn`, `error`).
 * Adds colors to log types (e.g. `warn`, `info` words will be colored).
 * Creates OS X / growl / libnotify notifications for errors.
 * Tracks whether any error was logged (useful for changing process exit code).
+
+![](http://f.cl.ly/items/3i260B2i1M1S1d0Q2b0r/Screen%20Shot%202013-02-27%20at%2012.57.02%20PM.png)
+
+Install with `npm install loggy`.
 
 ## Usage
 
