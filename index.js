@@ -48,19 +48,17 @@ var logger = {
         console.log.apply(console, all);
       }
     });
-  },
-
-  error: function() {
-    var args = slice.call(arguments);
-    if (logger.notifications) growl(args.join(' '), {title: 'Error'});
-    logger.errorHappened = true;
-    logger._log('error', args);
   }
 };
 
-['warn', 'info', 'log', 'success'].forEach(function(key) {
+['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
   logger[key] = function() {
-    logger._log(key, slice.call(arguments));
+    var args = slice.call(arguments);
+    if (key === 'error') {
+      if (logger.notifications) growl(args.join(' '), {title: 'Error'});
+      logger.errorHappened = true;
+    }
+    logger._log(key, args);
   };
 });
 
