@@ -9,8 +9,8 @@ var logger = {
   // Format of date in logs.
   entryFormat: 'DD MMM HH24:MI:SS',
 
-  // Enables / disables system notifications for errors.
-  notifications: true,
+  // Enables / disables system notifications for various log levels.
+  notifications: {error: true},
 
   // Colors that will be used for various log levels.
   colors: {
@@ -48,18 +48,48 @@ var logger = {
         console.log.apply(console, all);
       }
     });
+  },
+
+  _normalizeNotificationsSetting: function () {
+    var normalized = {};
+    switch (typeof this.notifications) {
+      case 'boolean':
+        normalized.error = this.notifications;
+        break;
+      case 'string':
+        this.notifications.split(/\W+/).forEach(function(key) {
+          normalized[key] = true;
+        });
+        break;
+      case 'object':
+        if (Array.isArray(this.notifications)) {
+          this.notifications.forEach(function(key) {
+            normalized[key] = true;
+          });
+        } else {
+          //ensure not null
+          if (this.notifications) normalized = this.notifications;
+        }
+        break;
+    }
+    this.notifications = normalized;
   }
 };
 
 ['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
   logger[key] = function() {
-    var args = slice.call(arguments);
-    if (key === 'error') {
-      if (logger.notifications) growl(args.join(' '), {title: 'Error'});
-      logger.errorHappened = true;
-    }
+    var args = slice.call(arguments),
+        title = capitalize(key);
+    //normalize here so setting can be re-configured dynamically any time
+    this._normalizeNotificationsSetting();
+    if (logger.notifications[key]) growl(args.join(' '), {title: title});
+    if (key === 'error') logger.errorHappened = true;
     logger._log(key, args);
   };
 });
+
+var capitalize = function (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 module.exports = logger;
