@@ -37,6 +37,8 @@ var logger = {
     return '' + date + ' - ' + colored + ':';
   },
 
+  _methods: ['error', 'warn', 'info', 'log', 'success'],
+
   _log: function(level, args) {
     var entry = logger.format(level);
     var all = [entry].concat(args);
@@ -64,7 +66,11 @@ var logger = {
         normalized.error = notifs;
         break;
       case 'string':
-        arrayToObj(notifs.split(/\W+/), normalized);
+        if (notifs.toLowerCase() === 'all' || notifs === '*') {
+          arrayToObj(this._methods, normalized);
+        } else {
+          arrayToObj(notifs.split(/\W+/), normalized);
+        }
         break;
       case 'object':
         if (Array.isArray(notifs)) {
@@ -79,7 +85,7 @@ var logger = {
   }
 };
 
-['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
+logger._methods.forEach(function(key) {
   logger[key] = function() {
     var args = slice.call(arguments),
         title = capitalize(key);
