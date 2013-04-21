@@ -51,21 +51,23 @@ var logger = {
   },
 
   _normalizeNotificationsSetting: function () {
-    var normalized = {};
+    var arrayToObj, 
+        normalized = {};
+
+    arrayToObj = function (arr, obj) {
+      arr.forEach(function(key) { obj[key] = true; });
+    }
+
     switch (typeof this.notifications) {
       case 'boolean':
         normalized.error = this.notifications;
         break;
       case 'string':
-        this.notifications.split(/\W+/).forEach(function(key) {
-          normalized[key] = true;
-        });
+        arrayToObj(this.notifications.split(/\W+/), normalized);
         break;
       case 'object':
         if (Array.isArray(this.notifications)) {
-          this.notifications.forEach(function(key) {
-            normalized[key] = true;
-          });
+          arrayToObj(this.notifications, normalized);
         } else {
           //ensure not null
           if (this.notifications) normalized = this.notifications;
