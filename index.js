@@ -51,7 +51,7 @@ var logger = {
   },
 
   _normalizeNotificationsSetting: function () {
-    var arrayToObj, 
+    var arrayToObj, title,
         normalized = {};
 
     arrayToObj = function (arr, obj) {
@@ -68,9 +68,9 @@ var logger = {
       case 'object':
         if (Array.isArray(this.notifications)) {
           arrayToObj(this.notifications, normalized);
-        } else {
-          //ensure not null
-          if (this.notifications) normalized = this.notifications;
+        } else if (this.notifications) { //ensure not null
+          if (title = this.notifications.title) this.notificationsTitle = title;
+          normalized = this.notifications;
         }
         break;
     }
@@ -84,6 +84,7 @@ var logger = {
         title = capitalize(key);
     //normalize here so setting can be re-configured dynamically any time
     this._normalizeNotificationsSetting();
+    if (logger.notificationsTitle) title = logger.notificationsTitle+' '+title;
     if (logger.notifications[key]) growl(args.join(' '), {title: title});
     if (key === 'error') logger.errorHappened = true;
     logger._log(key, args);
