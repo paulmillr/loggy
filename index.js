@@ -52,25 +52,26 @@ var logger = {
 
   _normalizeNotificationsSetting: function () {
     var arrayToObj, title,
+        notifs = this.notifications,
         normalized = {};
 
     arrayToObj = function (arr, obj) {
       arr.forEach(function(key) { obj[key] = true; });
     }
 
-    switch (typeof this.notifications) {
+    switch (typeof notifs) {
       case 'boolean':
-        normalized.error = this.notifications;
+        normalized.error = notifs;
         break;
       case 'string':
-        arrayToObj(this.notifications.split(/\W+/), normalized);
+        arrayToObj(notifs.split(/\W+/), normalized);
         break;
       case 'object':
-        if (Array.isArray(this.notifications)) {
-          arrayToObj(this.notifications, normalized);
-        } else if (this.notifications) { //ensure not null
-          if (title = this.notifications.title) this.notificationsTitle = title;
-          normalized = this.notifications;
+        if (Array.isArray(notifs)) {
+          arrayToObj(notifs, normalized);
+        } else if (notifs) { //ensure not null
+          if (title = notifs.title) this.notificationsTitle = title;
+          normalized = notifs;
         }
         break;
     }
