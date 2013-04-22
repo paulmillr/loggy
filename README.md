@@ -8,7 +8,8 @@ Colorful stdstream dead-simple logger for node.js.
 * Creates OS X / growl / libnotify notifications for errors.
 * Tracks whether any error was logged (useful for changing process exit code).
 
-![](http://f.cl.ly/items/3i260B2i1M1S1d0Q2b0r/Screen%20Shot%202013-02-27%20at%2012.57.02%20PM.png)
+![Screen Shot 2013-04-21 at 03 26 41](https://f.cloud.github.com/assets/574696/405855/2fe7271e-aa1a-11e2-8b85-347e71ac49f9.png)
+
 
 Install with `npm install loggy`.
 
