@@ -1,5 +1,14 @@
 var logger = require('./');
 
+//logger.notificationsTitle = 'Brunch';
+//logger.notifications = 'error warn';
+//logger.notifications = 'error, warn';
+//logger.notifications = ['error', 'warn'];
+//logger.notifications = {error: true, warn: true, title: 'Brunch'};
+//logger.notifications = '*';
+//logger.notifications = 'all';
+//logger.notifications = 'none';
+
 var delay = function(fn) {
   setTimeout(fn, 1000);
 };
