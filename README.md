@@ -59,18 +59,8 @@ Params:
   (disables colors).
 * `logger.errorHappened` - `false`, changes to `true` if any error was logged.
 * `logger.entryFormat` - String, format of date in logs. Default is `DD MMM HH24:MI:SS`
-* `logger.notifications` - Enables or disables system notifications.
-   * as Boolean
-      * `true` (default) - notify on errors
-      * `false` - disable all notifications
-   * as String
-      * `'all'` or `'*'` - notify on any type of log message
-      * `'error, warn, success'` - list types to activate notifications (use any non-word delimiter or combination you like)
-   * as Array
-      * `['error', 'warn', 'success']`
-   * as Object
-      * `{error: true, warn: true, info: false, title: 'MyApp'}` - optionally set title to be included in notifications
-*  `logger.notificationsTitle` - Another way to set optional title for notifications
+* `logger.notifications` - Can be boolean to enable or disable notifications on errors or array like `['error', 'warn']` to enable notifications for specific types of messages.
+* `logger.notificationsTitle` - Optionally set title to be prepended in notifications header
 
 To create your own logger, simply clone the logger object.
 

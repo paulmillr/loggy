@@ -65,21 +65,15 @@ var logger = {
       case 'boolean':
         normalized.error = notifs;
         break;
-      case 'string':
-        if (notifs.toLowerCase() === 'all' || notifs === '*') {
-          arrayToObj(this._methods, normalized);
-        } else {
-          arrayToObj(notifs.split(/\W+/), normalized);
-        }
-        break;
       case 'object':
         if (Array.isArray(notifs)) {
           arrayToObj(notifs, normalized);
         } else if (notifs) { //ensure not null
-          if (title = notifs.title) this.notificationsTitle = title;
-          normalized = notifs;
+          return; //already in proper form
         }
         break;
+      default:
+        normalized = {error: true};
     }
     this.notifications = normalized;
   }
