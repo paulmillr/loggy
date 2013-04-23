@@ -9,8 +9,8 @@ var logger = {
   // Format of date in logs.
   entryFormat: 'DD MMM HH24:MI:SS',
 
-  // Enables / disables system notifications for errors.
-  notifications: true,
+  // Enables / disables system notifications for various log levels.
+  notifications: {error: true},
 
   // Colors that will be used for various log levels.
   colors: {
@@ -37,6 +37,8 @@ var logger = {
     return '' + date + ' - ' + colored + ':';
   },
 
+  _methods: ['error', 'warn', 'info', 'log', 'success'],
+
   _log: function(level, args) {
     var entry = logger.format(level);
     var all = [entry].concat(args);
@@ -50,18 +52,48 @@ var logger = {
     });
   },
 
-  error: function() {
-    var args = slice.call(arguments);
-    if (logger.notifications) growl(args.join(' '), {title: 'Error'});
-    logger.errorHappened = true;
-    logger._log('error', args);
+  _normalizeNotificationsSetting: function () {
+    var arrayToObj, title,
+        notifs = this.notifications,
+        normalized = {};
+
+    arrayToObj = function (arr, obj) {
+      arr.forEach(function(key) { obj[key] = true; });
+    }
+
+    switch (typeof notifs) {
+      case 'boolean':
+        normalized.error = notifs;
+        break;
+      case 'object':
+        if (Array.isArray(notifs)) {
+          arrayToObj(notifs, normalized);
+        } else if (notifs) { //ensure not null
+          return; //already in proper form
+        }
+        break;
+      default:
+        normalized = {error: true};
+    }
+    this.notifications = normalized;
   }
 };
 
-['warn', 'info', 'log', 'success'].forEach(function(key) {
+logger._methods.forEach(function(key) {
   logger[key] = function() {
-    logger._log(key, slice.call(arguments));
+    var args = slice.call(arguments),
+        title = capitalize(key);
+    //normalize here so setting can be re-configured dynamically any time
+    this._normalizeNotificationsSetting();
+    if (logger.notificationsTitle) title = logger.notificationsTitle+' '+title;
+    if (logger.notifications[key]) growl(args.join(' '), {title: title});
+    if (key === 'error') logger.errorHappened = true;
+    logger._log(key, args);
   };
 });
+
+var capitalize = function (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 module.exports = logger;
