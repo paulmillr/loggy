@@ -48,20 +48,25 @@ var logger = {
         console.log.apply(console, all);
       }
     });
-  },
-
-  error: function() {
-    var args = slice.call(arguments);
-    if (logger.notifications) growl(args.join(' '), {title: 'Error'});
-    logger.errorHappened = true;
-    logger._log('error', args);
   }
 };
 
-['warn', 'info', 'log', 'success'].forEach(function(key) {
+['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
   logger[key] = function() {
-    logger._log(key, slice.call(arguments));
-  };
+    var args = slice.call(arguments);
+    var title = '';
+    if (key === 'error') logger.errorHappened = true;
+    if (typeof logger.notifications === 'boolean') {
+      logger.notifications = logger.notifications ? ['error'] : [];
+    }
+    if (!Array.isArray(logger.notifications)) logger.notifications = ['error'];
+    if (logger.notifications.indexOf(key) > -1) {
+      if (logger.notificationsTitle) title = logger.notificationsTitle + ' ';
+      title += key.charAt(0).toUpperCase() + key.slice(1);
+      growl(args.join(' '), {title: title});
+    }
+    logger._log(key, args);
+  }
 });
 
 module.exports = logger;
