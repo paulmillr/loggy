@@ -5,6 +5,10 @@ require('date-utils');
 
 var slice = [].slice;
 
+var capitalize = function(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 var logger = {
   // Format of date in logs.
   entryFormat: 'DD MMM HH24:MI:SS',
@@ -37,34 +41,53 @@ var logger = {
     return '' + date + ' - ' + colored + ':';
   },
 
+  _notify: function(level, args) {
+    if (level === 'error') logger.errorHappened = true;
+
+    var notifSettings = logger.notifications;
+    var types = logger._notificationTypes;
+    var title = logger._title;
+
+    if (!types) {
+      types = logger._notificationTypes = {};
+
+      if ('notifications' in logger) {
+        if (typeof notifSettings === 'object') {
+          notifSettings.forEach(function(name) {
+            types[name] = true;
+          });
+        } else {
+          types.error = true;
+        }
+      }
+    }
+
+    if (title == null) {
+      title = logger._title = logger.notificationsTitle ?
+        logger.notificationsTitle + ' ' : '';
+    }
+
+    if (types[level]) {
+      growl(args.join(' '), {title: title + capitalize(level)});
+    }
+  },
+
   _log: function(level, args) {
     var entry = logger.format(level);
     var all = [entry].concat(args);
 
-    process.nextTick(function() {
-      if (level === 'error' || level === 'warn') {
-        console.error.apply(console, all);
-      } else {
-        console.log.apply(console, all);
-      }
-    });
+    if (level === 'error' || level === 'warn') {
+      console.error.apply(console, all);
+    } else {
+      console.log.apply(console, all);
+    }
   }
 };
 
 ['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
   logger[key] = function() {
     var args = slice.call(arguments);
-    var title = '';
-    if (key === 'error') logger.errorHappened = true;
-    if (typeof logger.notifications === 'boolean') {
-      logger.notifications = logger.notifications ? ['error'] : [];
-    }
-    if (!Array.isArray(logger.notifications)) logger.notifications = ['error'];
-    if (logger.notifications.indexOf(key) > -1) {
-      if (logger.notificationsTitle) title = logger.notificationsTitle + ' ';
-      title += key.charAt(0).toUpperCase() + key.slice(1);
-      growl(args.join(' '), {title: title});
-    }
+    logger._notify(key, args);
     logger._log(key, args);
   }
 });
