@@ -1,6 +1,6 @@
 {
   "name": "loggy",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Dead-simple colored logger for stdout.",
   "main": "index.js",
   "scripts": {
@@ -19,8 +19,8 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "ansi-color": "http://registry.npmjs.org/ansi-color/-/ansi-color-0.2.1.tgz",
-    "growl": "~1.7.0",
-    "date-utils": "~1.2.12"
+    "ansi-color":  "~0.2.1",
+    "growl": "~1.8.1",
+    "date-utils": "~1.2.17"
   }
 }
