@@ -19,8 +19,7 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "ansi-color":  "~0.2.1",
-    "growl": "~1.8.1",
-    "date-utils": "~1.2.17"
+    "ansicolors":  "~0.3.2",
+    "growl": "~1.8.1"
   }
 }

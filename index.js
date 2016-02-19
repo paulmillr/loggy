@@ -1,18 +1,12 @@
 'use strict';
-var color = require('ansi-color');
-var growl = require('growl');
-require('date-utils');
+const colors = require('ansicolors');
+const growl = require('growl');
 
-var slice = [].slice;
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+const red1 = /^\w{3},\s|\sGMT$/g;
+const red2 = /(\w{3})\s\d{4}/;
 
-var capitalize = function(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-var logger = {
-  // Format of date in logs.
-  entryFormat: 'DD MMM HH24:MI:SS',
-
+const logger = {
   // Enables / disables system notifications for errors.
   notifications: true,
 
@@ -35,46 +29,45 @@ var logger = {
   //     # => 21 Feb 11:24:47 - warn:
   //
   // Returns String.
-  format: function(level, entryFormat) {
-    var date = new Date().toFormat(entryFormat || logger.entryFormat);
-    var colored = logger.colors ? color.set(level, logger.colors[level]) : level;
-    return '' + date + ' - ' + colored + ':';
+  format(level) {
+    const raw = new Date();
+    const date = raw.toGMTString().replace(red1, '').replace(red2, '$1');
+    const colorName = logger.colors[level];
+    const fn = colors[colorName];
+    const colored = logger.colors && fn ? fn(level) : level;
+    return `${date} - ${colored}:`;
   },
 
-  _notify: function(level, args) {
+  _notify(level, args) {
     if (level === 'error') logger.errorHappened = true;
+    const notifSettings = logger.notifications;
 
-    var notifSettings = logger.notifications;
-    var types = logger._notificationTypes;
-    var title = logger._title;
-
-    if (!types) {
-      types = logger._notificationTypes = {};
-
+    if (logger._notificationTypes == null) {
+      let items = logger._notificationTypes = {};
       if ('notifications' in logger) {
         if (typeof notifSettings === 'object') {
-          notifSettings.forEach(function(name) {
-            types[name] = true;
-          });
+          notifSettings.forEach(name => items[name] = true);
         } else {
-          types.error = true;
+          items.error = true;
         }
       }
     }
+    const types = logger._notificationTypes
 
-    if (title == null) {
-      title = logger._title = logger.notificationsTitle ?
-        logger.notificationsTitle + ' ' : '';
+    if (logger._title == null) {
+      logger._title = logger.notificationsTitle ?
+        logger.notificationsTitle + ' ' : ''
     }
+    const title = logger._title;
 
     if (types[level]) {
       growl(args.join(' '), {title: title + capitalize(level)});
     }
   },
 
-  _log: function(level, args) {
-    var entry = logger.format(level);
-    var all = [entry].concat(args);
+  _log(level, args) {
+    const entry = logger.format(level);
+    const all = [entry].concat(args);
 
     if (level === 'error' || level === 'warn') {
       console.error.apply(console, all);
@@ -84,9 +77,10 @@ var logger = {
   }
 };
 
-['error', 'warn', 'info', 'log', 'success'].forEach(function(key) {
+const slice = Array.prototype.slice;
+['error', 'warn', 'info', 'log', 'success'].forEach(key => {
   logger[key] = function() {
-    var args = slice.call(arguments);
+    const args = slice.call(arguments);
     logger._notify(key, args);
     logger._log(key, args);
   }

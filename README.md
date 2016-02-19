@@ -56,7 +56,7 @@ Methods:
 * `logger.warn(...args)` - logs messages in yellow to stdout
 * `logger.log(...args)`, `logger.info`, `logger.success` -
   logs messages in green to stdout.
-* `logger.format(level[, entryFormat = logger.entryFormat])` - function that does color and date formatting.
+* `logger.format(level)` - function that does color and date formatting.
 
 Params:
 
@@ -64,8 +64,7 @@ Params:
   Can be object, like `{error: 'red', log: 'green'}` or `false`
   (disables colors).
 * `logger.errorHappened` - `false`, changes to `true` if any error was logged.
-* `logger.entryFormat` - String, format of date in logs. Default is `DD MMM HH24:MI:SS`
-* `logger.notifications` - As Boolean, enables or disables notifications for errors, or 
+* `logger.notifications` - As Boolean, enables or disables notifications for errors, or
   as Array, list types to trigger notifications, like `['error', 'warn', 'success']`.
 * `logger.notificationsTitle` - String, optional, prepends title in notifications.
 
