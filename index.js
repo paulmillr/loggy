@@ -67,7 +67,11 @@ const logger = {
 
   _log(level, args) {
     const entry = logger.format(level);
-    const all = [entry].concat(args);
+    let all = [entry].concat(args);
+
+    if (level === 'error') {
+      all = all.concat(['\u0007']);
+    }
 
     if (level === 'error' || level === 'warn') {
       console.error.apply(console, all);
