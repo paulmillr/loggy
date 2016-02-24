@@ -3,8 +3,9 @@
   "version": "0.3.0",
   "description": "Dead-simple colored logger for stdout.",
   "main": "index.js",
+  "files": ["index.js"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,10 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "ansicolors":  "~0.3.2",
+    "ansicolors": "~0.3.2",
     "growl": "~1.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0"
   }
 }

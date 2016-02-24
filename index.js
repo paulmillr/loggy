@@ -43,7 +43,7 @@ const logger = {
     const notifSettings = logger.notifications;
 
     if (logger._notificationTypes == null) {
-      let items = logger._notificationTypes = {};
+      const items = logger._notificationTypes = {};
       if ('notifications' in logger) {
         if (typeof notifSettings === 'object') {
           notifSettings.forEach(name => items[name] = true);
@@ -52,11 +52,11 @@ const logger = {
         }
       }
     }
-    const types = logger._notificationTypes
+    const types = logger._notificationTypes;
 
     if (logger._title == null) {
       logger._title = logger.notificationsTitle ?
-        logger.notificationsTitle + ' ' : ''
+        logger.notificationsTitle + ' ' : '';
     }
     const title = logger._title;
 
@@ -87,7 +87,7 @@ const slice = Array.prototype.slice;
     const args = slice.call(arguments);
     logger._notify(key, args);
     logger._log(key, args);
-  }
+  };
 });
 
 module.exports = logger;
