@@ -41,6 +41,10 @@ const logger = {
   _notify(level, args) {
     if (level === 'error') logger.errorHappened = true;
     const notifSettings = logger.notifications;
+    
+    if (notifSettings === false) {
+      return;
+    }
 
     if (logger._notificationTypes == null) {
       const items = logger._notificationTypes = {};
