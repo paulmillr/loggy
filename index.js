@@ -22,6 +22,9 @@ const logger = {
   // May be used for setting correct process exit code.
   errorHappened: false,
 
+  // Dump stacks on errors
+  dumpStacks: process.env.LOGGY_STACKS !== undefined,
+
   // Creates new colored log entry.
   // Example:
   //
@@ -79,6 +82,10 @@ const logger = {
 
     if (level === 'error' || level === 'warn') {
       console.error.apply(console, all);
+      if (args[0] instanceof Error && logger.dumpStacks) {
+        let color = colors[logger.dumpStacks] || colors.brightBlack;
+        console.error(color(args[0].stack));
+      }
     } else {
       console.log.apply(console, all);
     }

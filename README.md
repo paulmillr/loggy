@@ -48,7 +48,12 @@ logger.notifications = ['error', 'warn', 'success'];
 
 // Prepend the notifications title
 logger.notificationsTitle = 'My App'
+
+// Dump stacks of Error objects as the first argument to error or warning
+logger.dumpStacks = true // 'blue' etc for your choice of color
 ```
+
+`loggy` takes the default value for `dumpStacks` from the `LOGGY_STACKS` environment variable.
 
 Methods:
 
