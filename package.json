@@ -1,6 +1,6 @@
 {
   "name": "loggy",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Dead-simple colored logger for stdout.",
   "main": "index.js",
   "files": ["index.js"],
