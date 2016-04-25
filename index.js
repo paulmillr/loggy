@@ -44,7 +44,7 @@ const logger = {
   _notify(level, args) {
     if (level === 'error') logger.errorHappened = true;
     const notifSettings = logger.notifications;
-    
+
     if (notifSettings === false) {
       return;
     }
@@ -81,10 +81,21 @@ const logger = {
     }
 
     if (level === 'error' || level === 'warn') {
-      console.error.apply(console, all);
-      if (args[0] instanceof Error && logger.dumpStacks) {
-        let color = colors[logger.dumpStacks] || colors.brightBlack;
-        console.error(color(args[0].stack));
+      const error = all.find(x => x instanceof Error);
+
+      if (error) {
+        const texts = all.map(x => x instanceof Error ? x.message : x);
+        console.error.apply(console, texts);
+
+        if (logger.dumpStacks) {
+          let color = colors[logger.dumpStacks] || colors.brightBlack;
+          console.error(color(error.stack.replace('Error: ' + error.message + '\n', '')));
+        } else {
+          let color = colors.brightBlack;
+          console.log(color('Stack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.'));
+        }
+      } else {
+        console.error.apply(console, all);
       }
     } else {
       console.log.apply(console, all);
