@@ -1,5 +1,5 @@
 'use strict';
-const colors = require('ansicolors');
+const colors = require('./colors');
 const growl = require('growl');
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
