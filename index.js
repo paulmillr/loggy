@@ -68,7 +68,11 @@ const logger = {
     const title = logger._title;
 
     if (types[level]) {
-      growl(args.join(' '), {title: title + capitalize(level)});
+      let string = args.join(' ');
+      const isWin = /^win/.test(process.platform);
+      // cut the notification on windows to 5000 chars to avoid the ENAMETOOLONG error (https://github.com/brunch/brunch/issues/1354)
+      if (isWin) string = string.slice(0, 5000);
+      growl(string, {title: title + capitalize(level)});
     }
   },
 
