@@ -3,8 +3,8 @@ const colors = require('./colors');
 const growl = require('growl');
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
-const red1 = /^\w{3},\s|\sGMT$/g;
-const red2 = /(\w{3})\s\d{4}/;
+const dateRe = /^\w{3} (\w{3}) (\d{1,2}) \d{4}$/;
+const timeRe = /\s.+/;
 
 const logger = {
   // Enables / disables system notifications for errors.
@@ -34,7 +34,13 @@ const logger = {
   // Returns String.
   format(level) {
     const raw = new Date();
-    const date = raw.toGMTString().replace(red1, '').replace(red2, '$1');
+    // 30 May 19:44:27
+    const d = raw.toDateString().replace(dateRe, '$2 $1');
+    const t = raw.toTimeString().replace(timeRe, '');
+    const date = `${d} ${t}`;
+    // const red1 = /^\w{3},\s|\sGMT$/g;
+    // const red2 = /(\w{3})\s\d{4}/;
+    // const date = raw.toGMTString().replace(red1, '').replace(red2, '$1');
     const colorName = logger.colors[level];
     const fn = colors[colorName];
     const colored = logger.colors && fn ? fn(level) : level;
