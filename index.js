@@ -5,6 +5,7 @@ const growl = require('growl');
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 const dateRe = /^\w{3} (\w{3}) (\d{1,2}) \d{4}$/;
 const timeRe = /\s.+/;
+const MAX_TITLE_WINDOWS = 5000;
 
 const logger = {
   // Enables / disables system notifications for errors.
@@ -77,7 +78,7 @@ const logger = {
       let string = args.join(' ');
       const isWin = /^win/.test(process.platform);
       // cut the notification on windows to 5000 chars to avoid the ENAMETOOLONG error (https://github.com/brunch/brunch/issues/1354)
-      if (isWin) string = string.slice(0, 5000);
+      if (isWin) string = string.slice(0, MAX_TITLE_WINDOWS);
       growl(string, {title: title + capitalize(level)});
     }
   },
@@ -98,10 +99,10 @@ const logger = {
         console.error.apply(console, texts);
 
         if (logger.dumpStacks) {
-          let color = colors[logger.dumpStacks] || colors.brightBlack;
+          const color = colors[logger.dumpStacks] || colors.brightBlack;
           console.error(color(error.stack.replace('Error: ' + error.message + '\n', '')));
         } else {
-          let color = colors.brightBlack;
+          const color = colors.brightBlack;
           console.log(color('Stack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.'));
         }
       } else {
