@@ -114,10 +114,9 @@ const logger = {
   }
 };
 
-const slice = Array.prototype.slice;
 ['error', 'warn', 'info', 'log', 'success'].forEach(key => {
   logger[key] = function() {
-    const args = slice.call(arguments);
+    const args = Array.from(arguments);
     logger._notify(key, args);
     logger._log(key, args);
   };
