@@ -76,4 +76,4 @@ To create your own logger, simply clone the logger object.
 
 ## License
 
-[The MIT license](https://github.com/paulmillr/mit)
+[MIT](https://github.com/paulmillr/mit) (c) 2016 Paul Miller (http://paulmillr.com)
