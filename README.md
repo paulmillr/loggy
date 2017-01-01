@@ -72,8 +72,6 @@ Params:
   as Array, list types to trigger notifications, like `['error', 'warn', 'success']`.
 * `logger.notificationsTitle` - String, optional, prepends title in notifications.
 
-To create your own logger, simply clone the logger object.
-
 ## License
 
 [MIT](https://github.com/paulmillr/mit) (c) 2016 Paul Miller (http://paulmillr.com)
