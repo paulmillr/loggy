@@ -50,7 +50,7 @@ const logger = {
 
     const color = logger.colors[level];
     const paint = chalk[color];
-    if (typeof paint === 'function') lavel = paint(level);
+    if (typeof paint === 'function') level = paint(level);
 
     return `${date} - ${level}:`;
   },
