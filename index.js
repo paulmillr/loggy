@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 const notifier = require('node-notifier');
 
-const capitalize = str => str[0].toUpperCase() + str.slice(1);
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 const logger = {
   // Enables / disables system notifications for errors.
