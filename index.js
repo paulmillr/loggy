@@ -70,7 +70,7 @@ const logger = {
   },
 
   _log(level, args) {
-    args.unshift(logger.format(level));
+    args = [logger.format(level)].concat(args);
     if (level === 'error') args.push(bell);
     if (level === 'error' || level === 'warn') {
       args = args.map(prettifyErrors);
