@@ -38,9 +38,7 @@ const logger = {
       day: 'numeric',
       hour12: false,
     });
-    // const red1 = /^\w{3},\s|\sGMT$/g;
-    // const red2 = /(\w{3})\s\d{4}/;
-    // const date = raw.toGMTString().replace(red1, '').replace(red2, '$1');
+
     const colorName = logger.colors[level];
     const fn = colors[colorName];
     const colored = logger.colors && fn ? fn(level) : level;
