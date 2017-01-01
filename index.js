@@ -1,6 +1,8 @@
 'use strict';
-const chalk = require('chalk');
 const notifier = require('node-notifier');
+const Chalk = require('chalk').constructor;
+const chalk = new Chalk();
+if ('FORCE_NO_COLOR' in process.env) chalk.enabled = false;
 
 const bell = '\x07';
 const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.');
