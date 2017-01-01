@@ -5,7 +5,7 @@ const notifier = require('node-notifier');
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 const logger = {
-  // Enables / disables system notifications for errors.
+  // Enables or disables system notifications for errors.
   notifications: true,
 
   // Colors that will be used for various log levels.
@@ -24,11 +24,10 @@ const logger = {
   dumpStacks: process.env.LOGGY_STACKS !== undefined,
 
   // Creates new colored log entry. Example:
-  // format('warn') // => Jan 1, 08:59:45 - warn:
-  //
-  // Returns String.
+  // logger.format('warn') // => 'Jan 1, 08:59:45 - warn:'
+  // Returns string.
   format(level) {
-    // 30 May 19:44:27
+    // Jan 1, 11:08:31
     const date = new Date().toLocaleTimeString('en-US', {
       month: 'short',
       day: 'numeric',
