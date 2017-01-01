@@ -50,9 +50,12 @@ const logger = {
       hour12: false,
     });
 
-    const color = logger.colors[level];
-    const paint = chalk[color];
-    if (typeof paint === 'function') level = paint(level);
+    const colors = logger.colors;
+    if (colors !== false) {
+      const color = colors[level];
+      const paint = chalk[color];
+      if (typeof paint === 'function') level = paint(level);
+    }
 
     return `${date} - ${level}:`;
   },
