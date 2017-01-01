@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": ["index.js", "colors.js", "color-ability.js"],
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint . && node test.js"
   },
   "repository": {
     "type": "git",
