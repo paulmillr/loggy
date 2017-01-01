@@ -2,7 +2,21 @@
 const chalk = require('chalk');
 const notifier = require('node-notifier');
 
+const bell = '\x07';
+const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.');
+
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
+const prettifyErrors = err => {
+  if (!(err instanceof Error)) return err;
+  if (logger.dumpStacks) {
+    const stack = err.stack.slice(err.stack.indexOf('\n'));
+    const color = chalk[logger.dumpStacks] || chalk.gray;
+
+    return err.message + color(stack);
+  }
+
+  return err.message + stackSuppressed;
+};
 
 const logger = {
   // Enables or disables system notifications for errors.
@@ -21,7 +35,7 @@ const logger = {
   errorHappened: false,
 
   // Dump stacks on errors
-  dumpStacks: process.env.LOGGY_STACKS !== undefined,
+  dumpStacks: process.env.LOGGY_STACKS === 'true',
 
   // Creates new colored log entry. Example:
   // logger.format('warn') // => 'Jan 1, 08:59:45 - warn:'
@@ -56,33 +70,13 @@ const logger = {
   },
 
   _log(level, args) {
-    const entry = logger.format(level);
-    let all = [entry].concat(args);
-
-    if (level === 'error') {
-      all = all.concat(['\u0007']);
-    }
-
+    args.unshift(logger.format(level));
+    if (level === 'error') args.push(bell);
     if (level === 'error' || level === 'warn') {
-      const error = all.find(x => x instanceof Error);
-
-      if (error) {
-        const texts = all.map(x => x instanceof Error ? x.message : x);
-        console.error.apply(console, texts);
-
-        if (logger.dumpStacks) {
-          const color = chalk[logger.dumpStacks] || chalk.gray;
-          console.error(color(error.stack.replace(`Error: ${error.message}\n`, '')));
-        } else {
-          const color = chalk.gray;
-          console.log(color('Stack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.'));
-        }
-      } else {
-        console.error.apply(console, all);
-      }
-    } else {
-      console.log.apply(console, all);
+      args = args.map(prettifyErrors);
     }
+
+    console.log.apply(console, args);
   },
 };
 
