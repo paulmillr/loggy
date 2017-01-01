@@ -116,7 +116,7 @@ const logger = {
   },
 };
 
-['error', 'warn', 'info', 'log', 'success'].forEach(key => {
+Object.keys(logger.colors).forEach(key => {
   logger[key] = function() {
     const args = Array.from(arguments);
     logger._notify(key, args);
