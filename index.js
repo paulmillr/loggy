@@ -80,11 +80,11 @@ const logger = {
   },
 };
 
-Object.keys(logger.colors).forEach(key => {
-  logger[key] = function() {
+Object.keys(logger.colors).forEach(level => {
+  logger[level] = function() {
     const args = Array.from(arguments);
-    logger._notify(key, args);
-    logger._log(key, args);
+    logger._notify(level, args);
+    logger._log(level, args);
   };
 });
 
