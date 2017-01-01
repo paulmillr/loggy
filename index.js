@@ -13,7 +13,7 @@ const logger = {
   colors: {
     error: 'red',
     warn: 'yellow',
-    info: 'green',
+    info: 'cyan',
     log: 'green',
     success: 'green',
   },
