@@ -3,7 +3,6 @@ const chalk = require('chalk');
 const notifier = require('node-notifier');
 
 const capitalize = str => str[0].toUpperCase() + str.slice(1);
-const MAX_TITLE_WINDOWS = 5000;
 
 const logger = {
   // Enables / disables system notifications for errors.
@@ -72,13 +71,9 @@ const logger = {
     const title = logger._title;
 
     if (types[level]) {
-      let string = args.join(' ');
-      const isWin = /^win/.test(process.platform);
-      // cut the notification on windows to 5000 chars to avoid the ENAMETOOLONG error (https://github.com/brunch/brunch/issues/1354)
-      if (isWin) string = string.slice(0, MAX_TITLE_WINDOWS);
       notifier.notify({
         title: title + capitalize(level),
-        message: string,
+        message: args.join(' '),
       });
     }
   },
