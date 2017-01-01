@@ -50,9 +50,9 @@ const logger = {
 
     const color = logger.colors[level];
     const paint = chalk[color];
-    const painted = typeof paint === 'function' ? paint(level) : level;
+    if (typeof paint === 'function') lavel = paint(level);
 
-    return `${date} - ${painted}:`;
+    return `${date} - ${level}:`;
   },
 
   _notify(level, args) {
@@ -83,6 +83,7 @@ const logger = {
 Object.keys(logger.colors).forEach(level => {
   logger[level] = function() {
     const args = Array.from(arguments);
+
     logger._notify(level, args);
     logger._log(level, args);
   };
