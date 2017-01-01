@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "ansicolors": "~0.3.2",
-    "growl": "~1.8.1"
+    "node-notifier": "^4.6.1"
   },
   "devDependencies": {
     "eslint": "^3.0.0",

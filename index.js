@@ -1,6 +1,6 @@
 'use strict';
 const colors = require('./colors');
-const growl = require('growl');
+const notifier = require('node-notifier');
 
 const capitalize = str => str[0].toUpperCase() + str.slice(1);
 const MAX_TITLE_WINDOWS = 5000;
@@ -78,7 +78,10 @@ const logger = {
       const isWin = /^win/.test(process.platform);
       // cut the notification on windows to 5000 chars to avoid the ENAMETOOLONG error (https://github.com/brunch/brunch/issues/1354)
       if (isWin) string = string.slice(0, MAX_TITLE_WINDOWS);
-      growl(string, {title: title + capitalize(level)});
+      notifier.notify({
+        title: title + capitalize(level),
+        message: string,
+      });
     }
   },
 
