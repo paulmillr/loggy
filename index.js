@@ -1,5 +1,5 @@
 'use strict';
-const colors = require('./colors');
+const chalk = require('chalk');
 const notifier = require('node-notifier');
 
 const capitalize = str => str[0].toUpperCase() + str.slice(1);
@@ -36,10 +36,11 @@ const logger = {
       hour12: false,
     });
 
-    const colorName = logger.colors[level];
-    const fn = colors[colorName];
-    const colored = logger.colors && fn ? fn(level) : level;
-    return `${date} - ${colored}:`;
+    const color = logger.colors[level];
+    const paint = chalk[color];
+    const painted = typeof paint === 'function' ? paint(level) : level;
+
+    return `${date} - ${painted}:`;
   },
 
   _notify(level, args) {
@@ -98,10 +99,10 @@ const logger = {
         console.error.apply(console, texts);
 
         if (logger.dumpStacks) {
-          const color = colors[logger.dumpStacks] || colors.brightBlack;
+          const color = chalk[logger.dumpStacks] || chalk.gray;
           console.error(color(error.stack.replace(`Error: ${error.message}\n`, '')));
         } else {
-          const color = colors.brightBlack;
+          const color = chalk.gray;
           console.log(color('Stack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.'));
         }
       } else {

@@ -20,7 +20,7 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "ansicolors": "~0.3.2",
+    "chalk": "^1.1.1",
     "node-notifier": "^4.6.1"
   },
   "devDependencies": {
