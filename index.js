@@ -3,8 +3,6 @@ const colors = require('./colors');
 const growl = require('growl');
 
 const capitalize = str => str[0].toUpperCase() + str.slice(1);
-const dateRe = /^\w{3} (\w{3}) (\d{1,2}) \d{4}$/;
-const timeRe = /\s.+/;
 const MAX_TITLE_WINDOWS = 5000;
 
 const logger = {
@@ -34,11 +32,12 @@ const logger = {
   //
   // Returns String.
   format(level) {
-    const raw = new Date();
     // 30 May 19:44:27
-    const d = raw.toDateString().replace(dateRe, '$2 $1');
-    const t = raw.toTimeString().replace(timeRe, '');
-    const date = `${d} ${t}`;
+    const date = new Date().toLocaleTimeString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour12: false,
+    });
     // const red1 = /^\w{3},\s|\sGMT$/g;
     // const red2 = /(\w{3})\s\d{4}/;
     // const date = raw.toGMTString().replace(red1, '').replace(red2, '$1');
