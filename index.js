@@ -24,11 +24,8 @@ const logger = {
   // Dump stacks on errors
   dumpStacks: process.env.LOGGY_STACKS !== undefined,
 
-  // Creates new colored log entry.
-  // Example:
-  //
-  //     format('warn')
-  //     # => 21 Feb 11:24:47 - warn:
+  // Creates new colored log entry. Example:
+  // format('warn') // => Jan 1, 08:59:45 - warn:
   //
   // Returns String.
   format(level) {
