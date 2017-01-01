@@ -44,38 +44,16 @@ const logger = {
 
   _notify(level, args) {
     if (level === 'error') logger.errorHappened = true;
-    const notifSettings = logger.notifications;
+    const settings = logger.notifications;
+    if (settings === false) return;
+    const types = Array.isArray(settings) ? settings : ['error'];
+    if (!types.includes(level)) return;
 
-    if (notifSettings === false) {
-      return;
-    }
-
-    if (logger._notificationTypes == null) {
-      const items = logger._notificationTypes = {};
-      if ('notifications' in logger) {
-        if (typeof notifSettings === 'object') {
-          notifSettings.forEach(name => {
-            items[name] = true;
-          });
-        } else {
-          items.error = true;
-        }
-      }
-    }
-    const types = logger._notificationTypes;
-
-    if (logger._title == null) {
-      logger._title = logger.notificationsTitle ?
-        logger.notificationsTitle + ' ' : '';
-    }
-    const title = logger._title;
-
-    if (types[level]) {
-      notifier.notify({
-        title: title + capitalize(level),
-        message: args.join(' '),
-      });
-    }
+    const title = logger.notificationsTitle ? logger.notificationsTitle + ' ' : '';
+    notifier.notify({
+      title: title + capitalize(level),
+      message: args.join(' '),
+    });
   },
 
   _log(level, args) {
