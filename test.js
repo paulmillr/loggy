@@ -1,3 +1,4 @@
+'use strict';
 var logger = require('./');
 
 var delay = function(fn) {

@@ -1,3 +1,5 @@
+'use strict';
+
 const colorAbility = (() => {
   if ('FORCE_NO_COLOR' in process.env) {
     return false;

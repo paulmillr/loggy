@@ -2,7 +2,7 @@
 const colors = require('./colors');
 const growl = require('growl');
 
-const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+const capitalize = str => str[0].toUpperCase() + str.slice(1);
 const dateRe = /^\w{3} (\w{3}) (\d{1,2}) \d{4}$/;
 const timeRe = /\s.+/;
 const MAX_TITLE_WINDOWS = 5000;
@@ -17,7 +17,7 @@ const logger = {
     warn: 'yellow',
     info: 'green',
     log: 'green',
-    success: 'green'
+    success: 'green',
   },
 
   // May be used for setting correct process exit code.
@@ -60,7 +60,9 @@ const logger = {
       const items = logger._notificationTypes = {};
       if ('notifications' in logger) {
         if (typeof notifSettings === 'object') {
-          notifSettings.forEach(name => items[name] = true);
+          notifSettings.forEach(name => {
+            items[name] = true;
+          });
         } else {
           items.error = true;
         }
@@ -100,7 +102,7 @@ const logger = {
 
         if (logger.dumpStacks) {
           const color = colors[logger.dumpStacks] || colors.brightBlack;
-          console.error(color(error.stack.replace('Error: ' + error.message + '\n', '')));
+          console.error(color(error.stack.replace(`Error: ${error.message}\n`, '')));
         } else {
           const color = colors.brightBlack;
           console.log(color('Stack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.'));
@@ -111,7 +113,7 @@ const logger = {
     } else {
       console.log.apply(console, all);
     }
-  }
+  },
 };
 
 ['error', 'warn', 'info', 'log', 'success'].forEach(key => {
