@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": ["index.js", "colors.js", "color-ability.js"],
   "scripts": {
-    "test": "eslint index.js"
+    "test": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,10 @@
     "growl": "~1.8.1"
   },
   "devDependencies": {
-    "eslint": "^2.2.0"
+    "eslint": "^3.0.0",
+    "eslint-config-brunch": "brunch/eslint-config-brunch"
+  },
+  "eslintConfig": {
+    "extends": "brunch"
   }
 }
