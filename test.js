@@ -8,4 +8,4 @@ logger.error('Oops');
 
 setTimeout(() => {
   logger.error(new TypeError('undefined is not a function'));
-});
+}, 1000);
