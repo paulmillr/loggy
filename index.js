@@ -81,7 +81,8 @@ const logger = {
       args = args.map(prettifyErrors);
     }
 
-    console.log.apply(console, args);
+    const log = console[level] || console.log;
+    log.apply(console, args);
   },
 };
 
