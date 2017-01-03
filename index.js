@@ -27,8 +27,8 @@ const logger = {
   colors: {
     error: 'red',
     warn: 'yellow',
-    info: 'cyan',
-    log: 'green',
+    info: 'green',
+    log: 'cyan',
     success: 'green',
   },
 
