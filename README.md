@@ -55,8 +55,8 @@ logger.dumpStacks = true; // or color of your choice
 
 Environment variables:
 
-`LOGGY_STACKS`: default value for `dumpStacks`. Pass `true` to see the stacks.
-`FORCE_NO_COLOR`: disables color output in `chalk`. Does not affect `logger.colors`.
+* `LOGGY_STACKS`: default value for `dumpStacks`. Pass `true` to see the stacks.
+* `FORCE_NO_COLOR`: disables color output in `chalk`. Does not affect `logger.colors`.
 
 Methods:
 
