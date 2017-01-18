@@ -53,7 +53,10 @@ logger.notificationsTitle = 'My App';
 logger.dumpStacks = true; // or color of your choice
 ```
 
-`loggy` takes the default value for `dumpStacks` from the `LOGGY_STACKS` environment variable.
+Environment variables:
+
+`LOGGY_STACKS`: default value for `dumpStacks`. Pass `true` to see the stacks.
+`FORCE_NO_COLOR`: disables color output in `chalk`. Does not affect `logger.colors`.
 
 Methods:
 
