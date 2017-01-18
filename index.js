@@ -66,7 +66,7 @@ const logger = {
     const types = Array.isArray(settings) ? settings : ['error'];
     if (!types.includes(level)) return;
 
-    const title = logger.notificationsTitle ? logger.notificationsTitle + ' ' : '';
+    const title = logger.notificationsTitle ? `${logger.notificationsTitle} ` : '';
     notifier.notify({
       title: title + capitalize(level),
       message: args.join(' '),
