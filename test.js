@@ -12,6 +12,6 @@ setTimeout(() => {
   logger.dumpStacks = true;
 
   setTimeout(() => {
-    logger.error(new TypeError('stack is showed'));
+    logger.error(new TypeError('stack is shown'));
   }, ONE_SEC);
 }, ONE_SEC);
