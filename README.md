@@ -17,7 +17,7 @@ Install with `npm install loggy`.
 Example:
 
 ```javascript
-var logger = require('loggy');
+const logger = require('loggy');
 
 // "Jan 18, 05:48:30 - log: Hello, loggy" to stdout.
 // "info" word is cyan.
