@@ -9,14 +9,12 @@ const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGG
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 const prettifyErrors = err => {
   if (!(err instanceof Error)) return err;
-  if (logger.dumpStacks) {
-    const stack = err.stack.slice(err.stack.indexOf('\n'));
-    const color = chalk[logger.dumpStacks] || chalk.gray;
+  if (!logger.dumpStacks) return err.message + stackSuppressed;
 
-    return err.message + color(stack);
-  }
+  const stack = err.stack.slice(err.stack.indexOf('\n'));
+  const color = chalk[logger.dumpStacks] || chalk.gray;
 
-  return err.message + stackSuppressed;
+  return err.message + color(stack);
 };
 
 const logger = {
