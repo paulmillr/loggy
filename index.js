@@ -3,7 +3,9 @@ const notifier = require('node-notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
 
+const today = () => new Date().setHours(0, 0, 0, 0);
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
+
 const prettifyErrors = err => {
   if (!(err instanceof Error)) return err;
   if (!logger.dumpStacks) return err.message + stackSuppressed;
@@ -38,16 +40,17 @@ const logger = {
   dumpStacks: process.env.LOGGY_STACKS === 'true',
 
   // Creates new colored log entry. Example:
-  // logger.format('warn') // => 'Jan 1, 08:59:45 - warn:'
+  // logger.format('warn') // => '08:59:45 - warn:'
   // Returns string.
   format(level) {
-    // Jan 1, 11:08:31
-    const date = new Date().toLocaleTimeString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour12: false,
-    });
+    const locale = {hour12: false};
+    if (initTime !== today()) {
+      // Jan 1, 11:08:31
+      locale.month = 'short';
+      locale.day = 'numeric';
+    }
 
+    const date = new Date().toLocaleTimeString('en-US', locale);
     const colors = logger.colors;
     if (colors !== false) {
       const color = colors[level];
