@@ -1,5 +1,5 @@
 'use strict';
-const notifier = require('node-notifier');
+const notify = require('./notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
 
@@ -46,8 +46,8 @@ const logger = {
     const locale = {hour12: false};
     if (initTime !== today()) {
       // Jan 1, 11:08:31
-      locale.month = 'short';
       locale.day = 'numeric';
+      locale.month = 'short';
     }
 
     const date = new Date().toLocaleTimeString('en-US', locale);
@@ -62,24 +62,26 @@ const logger = {
   },
 
   _notify(level, args) {
-    if (level === 'error') logger.errorHappened = true;
     const settings = logger.notifications;
     if (settings === false) return;
     const types = Array.isArray(settings) ? settings : ['error'];
     if (!types.includes(level)) return;
 
-    const title = logger.notificationsTitle ? `${logger.notificationsTitle} ` : '';
-    notifier.notify({
-      title: title + capitalize(level),
-      message: args.join(' '),
-    });
+    const title = [logger.notificationsTitle, capitalize(level)]
+      .filter(str => str != null)
+      .join(' ');
+
+    notify(title, args.join(' '));
   },
 
   _log(level, args) {
     args = [logger.format(level)].concat(args);
-    if (level === 'error') args.push(bell);
     if (level === 'error' || level === 'warn') {
       args = args.map(prettifyErrors);
+    }
+    if (level === 'error') {
+      logger.errorHappened = true;
+      args.push(bell);
     }
 
     const log = console[level] || console.log;
