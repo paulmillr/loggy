@@ -3,9 +3,6 @@ const notifier = require('node-notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
 
-const bell = '\x07';
-const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.');
-
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 const prettifyErrors = err => {
   if (!(err instanceof Error)) return err;
@@ -16,6 +13,10 @@ const prettifyErrors = err => {
 
   return err.message + color(stack);
 };
+
+const bell = '\x07';
+const initTime = today();
+const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.');
 
 const logger = {
   // Enables or disables system notifications for errors.
