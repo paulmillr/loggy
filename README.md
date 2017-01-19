@@ -19,15 +19,15 @@ Example:
 ```javascript
 const logger = require('loggy');
 
-// "Jan 18, 05:48:30 - log: Hello, loggy" to stdout.
+// "05:48:30 - log: Hello, loggy" to stdout.
 // "info" word is cyan.
 logger.info('Hello', 'loggy');
 
-// "Jan 18, 05:48:30 - warn: Deprecated" to stderr.
+// "05:48:30 - warn: Deprecated" to stderr.
 // "warn" word is yellow.
 logger.warn('Deprecated');
 
-// Logs "Jan 18, 05:48:30 - error: Oops" to stderr.
+// Logs "05:48:30 - error: Oops" to stderr.
 // "error" word is red.
 // Emits system notifications with title "Error" and message "Oops”.
 logger.error('Oops');
