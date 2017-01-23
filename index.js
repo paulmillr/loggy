@@ -1,4 +1,5 @@
 'use strict';
+const sysPath = require('path');
 const notify = require('./notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
@@ -22,7 +23,11 @@ const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGG
 
 const logger = {
   // Enables or disables system notifications for errors.
-  notifications: true,
+  notifications: {
+    app: 'Loggy',
+    icon: sysPath.resolve('loggy.png'),
+    levels: ['error'],
+  },
 
   // Colors that will be used for various log levels.
   colors: {
@@ -63,15 +68,16 @@ const logger = {
 
   _notify(level, args) {
     const settings = logger.notifications;
-    if (settings === false) return;
-    const types = Array.isArray(settings) ? settings : ['error'];
-    if (!types.includes(level)) return;
+    if (!settings) return;
+    if (!settings.levels.includes(level)) return;
 
-    const title = [logger.notificationsTitle, capitalize(level)]
-      .filter(str => str != null)
-      .join(' ');
-
-    notify(title, args.join(' '));
+    const app = settings.app;
+    notify({
+      app,
+      icon: settings.icon,
+      title: `${app} ${capitalize(level)}`,
+      message: args.join(' '),
+    });
   },
 
   _log(level, args) {

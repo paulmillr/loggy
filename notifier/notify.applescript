@@ -1,3 +1,4 @@
-on run argv
-  display notification item 2 of argv with title item 1 of argv
-end run
+set MESSAGE to get system attribute "MESSAGE"
+set TITLE to get system attribute "TITLE"
+
+display notification MESSAGE with title TITLE
