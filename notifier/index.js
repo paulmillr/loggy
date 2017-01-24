@@ -29,7 +29,6 @@ const appWithIcon = (appName, iconPath) => {
 
 module.exports = options => {
   const appPath = appWithIcon(options.app, options.icon);
-  console.log(appPath);
   const env = {
     TITLE: options.title,
     MESSAGE: options.message,
