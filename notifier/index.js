@@ -1,5 +1,4 @@
 'use strict';
-
 const platform = require('os').platform();
 
 module.exports = (() => {
@@ -10,4 +9,4 @@ module.exports = (() => {
   }
 
   return () => {};
-})();
+}());
