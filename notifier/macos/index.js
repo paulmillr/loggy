@@ -30,11 +30,13 @@ module.exports = options => {
     TITLE: options.title,
     MESSAGE: options.message,
   };
+  const exec = sh.async({env});
 
   if (options.icon) {
     const appPath = getAppPath(options.app, options.icon);
-    sh.async({env})`open -a ${appPath}`;
+
+    exec`open -a ${appPath}`;
   } else {
-    sh.async({env})`osascript ${scriptPath}`;
+    exec`osascript ${scriptPath}`;
   }
 };
