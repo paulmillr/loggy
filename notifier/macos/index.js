@@ -4,7 +4,7 @@ const tmpdir = require('os').tmpdir();
 const sh = require('../sh');
 
 const appsDir = `${tmpdir}/loggy`;
-sh.async`mkdir -p ${appsDir}`;
+sh`mkdir -p ${appsDir}`;
 
 const termIcon = `${__dirname}/term-icon.applescript`;
 const defaultIcon = sh`osascript ${termIcon}`;
