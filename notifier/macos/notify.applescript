@@ -11,12 +11,12 @@ tell application "System Events"
 end tell
 
 tell application "Terminal"
+  activate
   repeat with w in windows
     repeat with t in tabs of w
       if "node" is in processes of t then
-        set selected of t to true
         set frontmost of w to true
-        activate
+        set selected of t to true
         return
       end if
     end repeat
