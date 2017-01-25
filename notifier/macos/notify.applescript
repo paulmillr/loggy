@@ -7,9 +7,7 @@ if TITLE is not "" or MESSAGE is not "" then
 end if
 
 tell application "System Events"
-  if "Terminal" is not in name of processes then
-    return
-  end if
+  if "Terminal" is not in name of processes then return
 end tell
 
 tell application "Terminal"
