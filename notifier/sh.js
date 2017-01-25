@@ -18,8 +18,16 @@ const tag = (spawn, options) => function(arg) {
   return spawn(cmd, args, options);
 };
 
+const sync = function() {
+  const proc = cp.spawnSync.apply(cp, arguments);
+  if (proc.error) throw proc.error;
+  if (proc.status) throw new Error(`${proc.stderr}`.trim());
+
+  return `${proc.stdout}`.trim();
+};
+
 const cp = require('child_process');
-const sh = tag(cp.spawnSync);
+const sh = tag(sync);
 sh.sync = sh;
 sh.async = tag(cp.spawn);
 
