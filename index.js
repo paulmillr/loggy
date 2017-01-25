@@ -93,6 +93,7 @@ const logger = {
   },
 };
 
+Object.seal(logger.colors);
 Object.keys(logger.colors).forEach(level => {
   logger[level] = function() {
     const args = Array.from(arguments);
