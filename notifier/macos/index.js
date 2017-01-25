@@ -32,12 +32,13 @@ const getAppPath = (appName, iconSrc) => {
 };
 
 module.exports = opts => {
-  const icon = opts.icon || defaultIcon;
   const env = {
     TITLE: opts.title,
     MESSAGE: opts.message,
   };
 
+  const icon = opts.icon || defaultIcon;
   const appPath = getAppPath(opts.app, icon);
+
   sh.async({env})`open -a ${appPath}`;
 };
