@@ -1,19 +1,18 @@
 'use strict';
-const exists = require('fs').existsSync;
 const tmpdir = require('os').tmpdir();
+const exists = require('fs').existsSync;
 const sh = require('../sh');
 
 const appsDir = `${tmpdir}/loggy`;
+const script = `${__dirname}/notify.applescript`;
+const defaultIcon = '/Applications/Utilities/Terminal.app/Contents/Resources/Terminal.icns';
+
 sh`mkdir -p ${appsDir}`;
 
-const termIcon = `${__dirname}/term-icon.applescript`;
-const defaultIcon = sh`osascript ${termIcon}`;
-
-const notify = `${__dirname}/notify.applescript`;
 const getAppPath = (appName, iconSrc) => {
   const appPath = `${appsDir}/${appName}.app`;
   if (!exists(appPath)) {
-    sh`osacompile -o ${appPath} ${notify}`;
+    sh`osacompile -o ${appPath} ${script}`;
 
     const iconDest = `${appPath}/Contents/Resources/applet.icns`;
     if (iconSrc.endsWith('.icns')) {
