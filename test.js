@@ -1,6 +1,5 @@
 'use strict';
 const logger = require('.');
-const ONE_SEC = 1000;
 
 logger.log('Hello, loggy');
 logger.warn('Deprecated');
@@ -13,5 +12,5 @@ setTimeout(() => {
 
   setTimeout(() => {
     logger.error(new TypeError('stack is shown'));
-  }, ONE_SEC);
-}, ONE_SEC);
+  }, 1000);
+}, 1000);
