@@ -1,5 +1,4 @@
 'use strict';
-const notify = require('./notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
 
@@ -25,6 +24,7 @@ const logger = {
   notifications: {
     app: 'Loggy',
     levels: ['error'],
+    notify: require('./notifier'),
   },
 
   // Colors that will be used for various log levels.
@@ -65,15 +65,14 @@ const logger = {
   },
 
   _notify(level, args) {
-    const settings = logger.notifications;
-    if (!settings) return;
-    if (!settings.levels.includes(level)) return;
+    const opts = logger.notifications;
+    if (!opts) return;
+    if (!opts.levels.includes(level)) return;
 
-    const app = settings.app;
-    notify({
-      app,
-      icon: settings.icon,
-      title: `${app} ${capitalize(level)}`,
+    opts.notify({
+      app: opts.app,
+      icon: opts.icon,
+      title: `${opts.app} ${capitalize(level)}`,
       message: args.join(' '),
     });
   },
