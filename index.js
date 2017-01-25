@@ -23,6 +23,7 @@ const logger = {
   // Enables or disables system notifications for errors.
   notifications: {
     app: 'Loggy',
+    icon: `${__dirname}/logo.png`,
     levels: ['error'],
     notify: require('./notifier'),
   },
