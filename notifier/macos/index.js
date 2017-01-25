@@ -4,17 +4,23 @@ const tmpdir = require('os').tmpdir();
 const sh = require('../sh');
 
 const appsDir = `${tmpdir}/loggy`;
-const scriptPath = `${__dirname}/notify.applescript`;
-
 sh.async`mkdir -p ${appsDir}`;
 
-const getAppPath = (appName, iconPath) => {
+const termIcon = `${__dirname}/term-icon.applescript`;
+const defaultIcon = sh`osascript ${termIcon}`;
+
+const notify = `${__dirname}/notify.applescript`;
+const getAppPath = (appName, iconSrc) => {
   const appPath = `${appsDir}/${appName}.app`;
   if (!exists(appPath)) {
-    sh`osacompile -o ${appPath} ${scriptPath}`;
+    sh`osacompile -o ${appPath} ${notify}`;
 
-    const icnsPath = `${appPath}/Contents/Resources/applet.icns`;
-    sh`sips -s format icns ${iconPath} --out ${icnsPath}`;
+    const iconDest = `${appPath}/Contents/Resources/applet.icns`;
+    if (iconSrc.endsWith('.icns')) {
+      sh`cp ${iconSrc} ${iconDest}`;
+    } else {
+      sh`sips -s format icns ${iconSrc} --out ${iconDest}`;
+    }
 
     const bundleId = `com.paulmillr.loggy.${appName}`;
     const plistPath = `${appPath}/Contents/Info.plist`;
@@ -25,18 +31,13 @@ const getAppPath = (appName, iconPath) => {
   return appPath;
 };
 
-module.exports = options => {
+module.exports = opts => {
+  const icon = opts.icon || defaultIcon;
   const env = {
-    TITLE: options.title,
-    MESSAGE: options.message,
+    TITLE: opts.title,
+    MESSAGE: opts.message,
   };
-  const shEnv = sh.async({env});
 
-  if (options.icon) {
-    const appPath = getAppPath(options.app, options.icon);
-
-    shEnv`open -a ${appPath}`;
-  } else {
-    shEnv`osascript ${scriptPath}`;
-  }
+  const appPath = getAppPath(opts.app, icon);
+  sh.async({env})`open -a ${appPath}`;
 };
