@@ -1,5 +1,4 @@
 'use strict';
-const sysPath = require('path');
 const notify = require('./notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
@@ -25,7 +24,6 @@ const logger = {
   // Enables or disables system notifications for errors.
   notifications: {
     app: 'Loggy',
-    icon: sysPath.resolve('loggy.png'),
     levels: ['error'],
   },
 

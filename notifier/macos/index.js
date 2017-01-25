@@ -3,15 +3,15 @@ const exists = require('fs').existsSync;
 const tmpdir = require('os').tmpdir();
 const sh = require('../sh');
 
-const loggyDir = `${tmpdir}/loggy`;
-const srcPath = `${__dirname}/notify.applescript`;
+const appsDir = `${tmpdir}/loggy`;
+const scriptPath = `${__dirname}/notify.applescript`;
 
-sh.async`mkdir -p ${loggyDir}`;
+sh.async`mkdir -p ${appsDir}`;
 
-const appWithIcon = (appName, iconPath) => {
-  const appPath = `${loggyDir}/${appName}.app`;
+const getAppPath = (appName, iconPath) => {
+  const appPath = `${appsDir}/${appName}.app`;
   if (!exists(appPath)) {
-    sh`osacompile -o ${appPath} ${srcPath}`;
+    sh`osacompile -o ${appPath} ${scriptPath}`;
 
     const icnsPath = `${appPath}/Contents/Resources/applet.icns`;
     sh`sips -s format icns ${iconPath} --out ${icnsPath}`;
@@ -26,11 +26,15 @@ const appWithIcon = (appName, iconPath) => {
 };
 
 module.exports = options => {
-  const appPath = appWithIcon(options.app, options.icon);
   const env = {
     TITLE: options.title,
     MESSAGE: options.message,
   };
 
-  sh.async({env})`open -a ${appPath}`;
+  if (options.icon) {
+    const appPath = getAppPath(options.app, options.icon);
+    sh.async({env})`open -a ${appPath}`;
+  } else {
+    sh.async({env})`osascript ${scriptPath}`;
+  }
 };
