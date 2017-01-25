@@ -44,7 +44,6 @@ const logger = {
 
   // Creates new colored log entry. Example:
   // logger.format('warn') // => '08:59:45 - warn:'
-  // Returns string.
   format(level) {
     const locale = {hour12: false};
     if (initTime !== today()) {
@@ -55,7 +54,7 @@ const logger = {
 
     const date = new Date().toLocaleTimeString('en-US', locale);
     const colors = logger.colors;
-    if (colors !== false) {
+    if (colors === Object(colors)) {
       const color = colors[level];
       const paint = chalk[color];
       if (typeof paint === 'function') level = paint(level);
