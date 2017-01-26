@@ -4,14 +4,14 @@ const exists = require('fs').existsSync;
 const sh = require('../sh');
 
 const appsDir = `${tmpdir}/loggy`;
-const notify = `${__dirname}/notify.applescript`;
+const notify = `${__dirname}/notify.js`;
 
 sh`mkdir -p ${appsDir}`;
 
 const getAppPath = (appName, iconSrc) => {
   const appPath = `${appsDir}/${appName}.app`;
   if (!exists(appPath)) {
-    sh`osacompile -o ${appPath} ${notify}`;
+    sh`osacompile -l JavaScript -o ${appPath} ${notify}`;
 
     const iconDest = `${appPath}/Contents/Resources/applet.icns`;
     sh`sips -s format icns ${iconSrc} --out ${iconDest}`;
