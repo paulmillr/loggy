@@ -17,7 +17,7 @@ var showNode = function() {
       return;
     }
   }
-}
+};
 
 var app = Application.currentApplication();
 app.includeStandardAdditions = true;
