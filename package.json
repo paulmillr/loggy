@@ -2,8 +2,10 @@
   "name": "loggy",
   "version": "0.3.5",
   "description": "Dead-simple colored logger for stdout.",
+  "main": "index.js",
+  "files": ["index.js", "colors.js", "color-ability.js"],
   "scripts": {
-    "test": "eslint . && node test.js"
+    "test": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +20,10 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1"
+    "ansicolors": "~0.3.2",
+    "growl": "~1.8.1"
   },
   "devDependencies": {
-    "eslint": "^3.0.0",
-    "eslint-config-brunch": "brunch/eslint-config-brunch"
-  },
-  "eslintConfig": {
-    "extends": "brunch"
+    "eslint": "^2.2.0"
   }
 }
