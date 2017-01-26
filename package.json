@@ -1,6 +1,6 @@
 {
   "name": "loggy",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "Dead-simple colored logger for stdout.",
   "scripts": {
     "test": "eslint . && node test.js"
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "eslint": "^3.0.0",
-    "eslint-config-brunch": "brunch/eslint-config-brunch"
+    "eslint-config-brunch": "^1.0.0"
   },
   "eslintConfig": {
     "extends": "brunch"
