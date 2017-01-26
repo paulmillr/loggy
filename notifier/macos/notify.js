@@ -1,32 +1,32 @@
 'use strict';
 /* eslint-env applescript */
-/* eslint-disable new-cap, prefer-arrow-callback */
+/* eslint-disable new-cap */
 
 var showNode = function() {
   var term = Application('Terminal');
   if (!term.running()) return;
 
-  term.windows().some(function(win) {
-    return win.tabs().some(function(tab) {
-      if (!tab.processes().includes('node')) return;
+  for (var win of term.windows()) {
+    for (var tab of win.tabs()) {
+      if (!tab.processes().includes('node')) continue;
 
       tab.selected = true;
       win.frontmost = true;
       term.activate();
 
-      return true;
-    });
-  });
-};
+      return;
+    }
+  }
+}
 
 var app = Application.currentApplication();
 app.includeStandardAdditions = true;
 
-var title = app.systemAttribute('TITLE');
+var withTitle = app.systemAttribute('TITLE');
 var message = app.systemAttribute('MESSAGE');
 
-if (title || message) {
-  app.displayNotification(message, {withTitle: title});
+if (withTitle || message) {
+  app.displayNotification(message, {withTitle});
 } else {
   showNode();
 }
