@@ -1,15 +1,16 @@
-var logger = require('./');
+'use strict';
+const logger = require('.');
 
-var delay = function(fn) {
-  setTimeout(fn, 1000);
-};
+logger.log('Hello, loggy');
+logger.warn('Deprecated');
+logger.info(new Date());
+logger.error('$PATH');
 
-delay(function() {
-  logger.log('Hello, loggy');
-  delay(function() {
-    logger.warn('Deprecated');
-    delay(function() {
-      logger.error('Stuff');
-    });
-  });
-});
+setTimeout(() => {
+  logger.error(new TypeError('undefined is not a function'));
+  logger.dumpStacks = true;
+
+  setTimeout(() => {
+    logger.error(new TypeError('stack is shown'));
+  }, 1000);
+}, 1000);
