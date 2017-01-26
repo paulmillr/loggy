@@ -1,4 +1,7 @@
 'use strict';
+/* eslint-env applescript */
+/* eslint-disable new-cap, prefer-arrow-callback */
+
 var showNode = function() {
   var term = Application('Terminal');
   if (!term.running()) return;
