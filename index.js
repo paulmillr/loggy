@@ -1,4 +1,5 @@
 'use strict';
+const notify = require('native-notifier');
 const Chalk = require('chalk').constructor;
 const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
 
@@ -25,7 +26,7 @@ const logger = {
     app: 'Loggy',
     icon: `${__dirname}/logo.png`,
     levels: ['error'],
-    notify: require('./notifier'),
+    notify: notify,
   },
 
   // Colors that will be used for various log levels.
