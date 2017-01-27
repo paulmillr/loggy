@@ -18,7 +18,8 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1"
+    "chalk": "^1.1.1",
+    "native-notifier": "paulmillr/native-notifier"
   },
   "devDependencies": {
     "eslint": "^3.0.0",
