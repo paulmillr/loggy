@@ -9,7 +9,7 @@ Colorful stdstream dead-simple logger for node.js.
 * Tracks whether any error was logged (useful for changing process exit code).
 * No 3rd-party deps (Growl etc.)
 
-![Screen Shot 2013-04-21 at 03 26 41](https://f.cloud.github.com/assets/574696/405855/2fe7271e-aa1a-11e2-8b85-347e71ac49f9.png)
+![Screen Shot 2013-04-21 at 03 26 41](https://cloud.githubusercontent.com/assets/574696/22355836/d5a57152-e435-11e6-8b22-6aca8b4e79b1.png)
 
 Install with `npm install loggy`.
 
