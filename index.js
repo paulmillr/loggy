@@ -26,7 +26,7 @@ const logger = {
     app: 'Loggy',
     icon: `${__dirname}/logo.png`,
     levels: ['error'],
-    notify: notify,
+    notify,
   },
 
   // Colors that will be used for various log levels.
