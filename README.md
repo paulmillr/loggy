@@ -5,8 +5,9 @@ Colorful stdstream dead-simple logger for node.js.
 * Logs stuff to stdout (`log`, `info`, `success`).
 * Logs errors & warnings to stderr (`warn`, `error`).
 * Adds colors to log types (e.g. `warn`, `info` words will be colored). Uses [chalk](https://github.com/chalk/chalk).
-* Emits system notifications for errors with [node-notifier](https://github.com/mikaelbr/node-notifier).
+* Emits system notifications for errors with [native-notifier](https://github.com/paulmillr/native-notifier).
 * Tracks whether any error was logged (useful for changing process exit code).
+* No 3rd-party deps (Growl etc.)
 
 ![Screen Shot 2013-04-21 at 03 26 41](https://f.cloud.github.com/assets/574696/405855/2fe7271e-aa1a-11e2-8b85-347e71ac49f9.png)
 
