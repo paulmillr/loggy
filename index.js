@@ -18,7 +18,7 @@ const prettifyErrors = err => {
 
 const bell = '\x07';
 const initTime = today();
-const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=true` to see the trace.');
+const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=1` to see the trace.');
 
 const logger = {
   // Enables or disables system notifications for errors.
@@ -42,7 +42,7 @@ const logger = {
   errorHappened: false,
 
   // Dump stacks on errors
-  dumpStacks: process.env.LOGGY_STACKS === 'true',
+  dumpStacks: process.env.LOGGY_STACKS === 'true' || process.env.LOGGY_STACKS === '1',
 
   // Creates new colored log entry. Example:
   // logger.format('warn') // => '08:59:45 - warn:'
