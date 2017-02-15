@@ -1,6 +1,6 @@
 {
   "name": "loggy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Dead-simple colored logger for stdout.",
   "scripts": {
     "test": "eslint . && node test.js"
