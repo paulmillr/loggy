@@ -73,7 +73,8 @@ Params:
   Can be object, like `{error: 'red', log: 'cyan'}` or `false` (disables colors).
 * `logger.errorHappened` - `false`, changes to `true` if any error was logged.
 * `logger.notifications` - As Boolean, enables or disables notifications for errors, or
-  as Array, list types to trigger notifications, like `['error', 'warn', 'success']`.
+  as Array, list types to trigger notifications, like `['error', 'warn', 'success']`. Disabled
+  in production mode `NODE_ENV=production` by default.
 * `logger.notificationsTitle` - String, optional, prepends title in notifications.
 
 ## License
