@@ -19,15 +19,16 @@ const prettifyErrors = err => {
 const bell = '\x07';
 const initTime = today();
 const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=1` to see the trace.');
+const notifications = {
+  app: 'Loggy',
+  icon: `${__dirname}/logo.png`,
+  levels: ['error'],
+  notify,
+};
 
 const logger = {
   // Enables or disables system notifications for errors.
-  notifications: {
-    app: 'Loggy',
-    icon: `${__dirname}/logo.png`,
-    levels: ['error'],
-    notify,
-  },
+  notifications: process.env.NODE_ENV !== 'production' && notifications,
 
   // Colors that will be used for various log levels.
   colors: {
