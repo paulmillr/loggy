@@ -1,7 +1,7 @@
 'use strict';
 const notify = require('native-notifier');
-const Chalk = require('chalk').constructor;
-const chalk = new Chalk('FORCE_NO_COLOR' in process.env && {enabled: false});
+const turbo = require('turbocolor');
+turbo.enabled = !('FORCE_NO_COLOR' in process.env);
 
 const today = () => new Date().setHours(0, 0, 0, 0);
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
@@ -11,14 +11,14 @@ const prettifyErrors = err => {
   if (!logger.dumpStacks) return err.message + stackSuppressed;
 
   const stack = err.stack.slice(err.stack.indexOf('\n'));
-  const color = chalk[logger.dumpStacks] || chalk.gray;
+  const color = turbo[logger.dumpStacks] || turbo.gray;
 
   return err.message + color(stack);
 };
 
 const bell = '\x07';
 const initTime = today();
-const stackSuppressed = chalk.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=1` to see the trace.');
+const stackSuppressed = turbo.gray('\nStack trace was suppressed. Run with `LOGGY_STACKS=1` to see the trace.');
 
 const logger = {
   // Enables or disables system notifications for errors.
@@ -58,7 +58,7 @@ const logger = {
     const colors = logger.colors;
     if (colors === Object(colors)) {
       const color = colors[level];
-      const paint = chalk[color];
+      const paint = turbo[color];
       if (typeof paint === 'function') level = paint(level);
     }
 
