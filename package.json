@@ -18,7 +18,7 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "turbocolor": "^2.2.0",
+    "colorette": "^1.0.1",
     "native-notifier": "~0.1.0"
   },
   "devDependencies": {
