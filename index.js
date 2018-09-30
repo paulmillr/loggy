@@ -1,7 +1,6 @@
 'use strict';
 const notify = require('native-notifier');
 const colorette = require('colorette');
-colorette.enabled = !('FORCE_NO_COLOR' in process.env);
 
 const today = () => new Date().setHours(0, 0, 0, 0);
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
