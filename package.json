@@ -18,12 +18,13 @@
   "author": "Paul Miller (paulmillr.com)",
   "license": "MIT",
   "dependencies": {
-    "colorette": "^1.0.1",
-    "native-notifier": "~0.1.0"
+    "colorette": "^1.0.1"
+
   },
   "devDependencies": {
     "eslint": "^3.0.0",
-    "eslint-config-brunch": "^1.0.0"
+    "eslint-config-brunch": "^1.0.0",
+    "native-notifier": "~0.1.0"
   },
   "eslintConfig": {
     "extends": "brunch"
