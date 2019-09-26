@@ -1,6 +1,6 @@
 {
   "name": "loggy",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Dead-simple colored logger for stdout.",
   "files": ["index.js", "index.d.ts", "logo.png"],
   "scripts": {
@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "colorette": "~1.1",
-    "native-notifier": "~0.1.0"
+    "native-notifier": "~0.1.6"
   },
   "devDependencies": {
     "eslint": "^6",
