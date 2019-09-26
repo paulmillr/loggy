@@ -2,6 +2,7 @@
   "name": "loggy",
   "version": "1.0.5",
   "description": "Dead-simple colored logger for stdout.",
+  "files": ["index.js", "index.d.ts", "logo.png"],
   "scripts": {
     "test": "eslint . && node test.js"
   },
