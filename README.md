@@ -4,7 +4,7 @@ Colorful stdstream dead-simple logger for node.js.
 
 * Logs stuff to stdout (`log`, `info`, `success`).
 * Logs errors & warnings to stderr (`warn`, `error`).
-* Adds colors to log types (e.g. `warn`, `info` words will be colored). Uses [Turbocolor](https://github.com/jorgebucaran/turbocolor).
+* Adds colors to log types (e.g. `warn`, `info` words will be colored). Uses lightweight [colorette](https://github.com/jorgebucaran/colorette).
 * Emits system notifications for errors with [native-notifier](https://github.com/paulmillr/native-notifier).
 * Tracks whether any error was logged (useful for changing process exit code).
 * No 3rd-party deps (Growl etc.)
