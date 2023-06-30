@@ -47,7 +47,7 @@ logger.colors = false;
 logger.notifications = false;
 
 // Enable notifications for more methods
-logger.notifications = ['error', 'warn', 'success'];
+logger.notifications.levels = ['error', 'warn', 'success'];
 
 // Prepend the notifications title
 logger.notificationsTitle = 'My App';
